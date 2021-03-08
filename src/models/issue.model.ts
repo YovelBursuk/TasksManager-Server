@@ -37,4 +37,4 @@ issueSchema.statics.build = (attr: IIssue) => {
 
 const Issue = mongoose.model<IssueDoc, IssueModelInterface>("issues", issueSchema);
 
-export { Issue, IssueDoc };
+export { Issue, IIssue };

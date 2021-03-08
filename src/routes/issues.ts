@@ -1,6 +1,6 @@
 import express, { Request, Response } from "express";
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
-import { Issue, IssueDoc } from "../models/issue.model";
+import { Issue, IIssue } from "../models/issue.model";
 
 const router = express.Router();
 
@@ -10,7 +10,7 @@ router.get("/issues", async (req: Request, res: Response) => {
 });
 
 router.post("/issues", async (req: Request, res: Response) => {
-    const { title, text, column } = req.body;
+    const { title, text, column } : IIssue = req.body;
 
     try {
         const issue = Issue.build({ title, text, column });
