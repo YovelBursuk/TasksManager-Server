@@ -2,11 +2,14 @@ import express from "express";
 import mongoose from "mongoose";
 import { json } from "body-parser";
 import { issuesRouter } from "./routes/issues";
+import swaggerUi from "swagger-ui-express";
 
 const app = express();
 const port = 8080; // default port to listen
 
 app.use(json());
+app.use(express.static("public"));
+app.use("/swagger", swaggerUi.serve, swaggerUi.setup(undefined, { swaggerOptions: { url: "/swagger.json" } }));
 
 mongoose.connect("mongodb://localhost:27017/jira", {
     useCreateIndex: true,
