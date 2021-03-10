@@ -3,6 +3,7 @@ import { Issue } from "../models/issue.model";
 import { StatusCodes, ReasonPhrases } from "http-status-codes";
 
 export interface IssueDocSwagger {
+    issueId: number,
     title: string,
     text: string,
     column: number
@@ -22,9 +23,9 @@ export class IssueController {
     @Post("/issues")
     @SuccessResponse(StatusCodes.CREATED, ReasonPhrases.CREATED)
     public async createIssue(
-        @Body() { title, text, column }: IssueDocSwagger
+        @Body() { title, text, column, issueId }: IssueDocSwagger
     ): Promise<void> {
-        const issue = Issue.build({ title, text, column });
+        const issue = Issue.build({ title, text, column, issueId });
         await issue.save();
     }
 }

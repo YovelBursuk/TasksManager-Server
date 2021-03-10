@@ -8,6 +8,10 @@
 		"schemas": {
 			"IssueDocSwagger": {
 				"properties": {
+					"issueId": {
+						"type": "number",
+						"format": "double"
+					},
 					"title": {
 						"type": "string"
 					},
@@ -20,6 +24,7 @@
 					}
 				},
 				"required": [
+					"issueId",
 					"title",
 					"text",
 					"column"

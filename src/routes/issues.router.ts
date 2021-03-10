@@ -15,7 +15,7 @@ router.post("/issues", async (req: Request, res: Response) => {
     const body : IIssue = req.body;
 
     const controller = new IssueController();
-    controller.createIssue(body);
+    await controller.createIssue({...body, issueId: Math.floor(Math.random() * 10000) + 1});
     return res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 });
 
