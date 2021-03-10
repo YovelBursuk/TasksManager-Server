@@ -15,13 +15,8 @@ router.post("/issues", async (req: Request, res: Response) => {
     const body : IIssue = req.body;
 
     const controller = new IssueController();
-    try {
-        controller.createIssue(body);
-        return res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
-    } catch (mongoErr) {
-        // get the status code from the error itself
-        return res.status(StatusCodes.INTERNAL_SERVER_ERROR).send(mongoErr.message);
-    }
+    controller.createIssue(body);
+    return res.status(StatusCodes.CREATED).send(ReasonPhrases.CREATED);
 });
 
 export {  router as issuesRouter };
