@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import { IssueDocSwagger } from "../controllers/issue.controller";
 
 interface IIssue {
     title: string,
@@ -10,11 +11,7 @@ interface IssueModelInterface extends mongoose.Model<IssueDoc> {
     build(attr: IIssue): IssueDoc
 }
 
-interface IssueDoc extends mongoose.Document {
-    title: string,
-    text: string,
-    column: number
-}
+interface IssueDoc extends mongoose.Document, IssueDocSwagger {}
 
 const issueSchema = new mongoose.Schema({
     title: {

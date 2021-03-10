@@ -1,7 +1,7 @@
 import express from "express";
 import mongoose from "mongoose";
 import { json } from "body-parser";
-import { issuesRouter } from "./routes/issues";
+import { issuesRouter } from "./routes/issues.router";
 import swaggerUi from "swagger-ui-express";
 
 const app = express();

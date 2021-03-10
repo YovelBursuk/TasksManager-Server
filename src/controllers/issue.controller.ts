@@ -1,18 +1,30 @@
-import mongoose from "mongoose";
-import { Get, Post, Route } from "tsoa";
+import { Body, Get, Post, Res, Response, Route, SuccessResponse,  } from "tsoa";
 import { Issue } from "../models/issue.model";
+import { StatusCodes, ReasonPhrases } from "http-status-codes";
+
+export interface IssueDocSwagger {
+    title: string,
+    text: string,
+    column: number
+}
+
 
 @Route("api")
-export default class IssueController {
+export class IssueController {
     @Get("/issues")
-    public async getIssues(): Promise<{title: string, text: string, column: number}[]> {
+    @SuccessResponse(StatusCodes.OK, ReasonPhrases.OK)
+    @Response(StatusCodes.INTERNAL_SERVER_ERROR, ReasonPhrases.INTERNAL_SERVER_ERROR)
+    public async getIssues(): Promise<IssueDocSwagger[]> {
         const issues = await Issue.find({});
         return issues;
     }
 
-    // @Post("/issues")
-    // public async createIssue(title: string, text: string, column: number): Promise<void> {
-    //     const issue = Issue.build({ title, text, column });
-    //     await issue.save();
-    // }
+    @Post("/issues")
+    @SuccessResponse(StatusCodes.CREATED, ReasonPhrases.CREATED)
+    public async createIssue(
+        @Body() { title, text, column }: IssueDocSwagger
+    ): Promise<void> {
+        const issue = Issue.build({ title, text, column });
+        await issue.save();
+    }
 }

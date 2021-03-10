@@ -5,7 +5,29 @@
 		"parameters": {},
 		"requestBodies": {},
 		"responses": {},
-		"schemas": {},
+		"schemas": {
+			"IssueDocSwagger": {
+				"properties": {
+					"title": {
+						"type": "string"
+					},
+					"text": {
+						"type": "string"
+					},
+					"column": {
+						"type": "number",
+						"format": "double"
+					}
+				},
+				"required": [
+					"title",
+					"text",
+					"column"
+				],
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
 		"securitySchemes": {}
 	},
 	"info": {
@@ -23,38 +45,44 @@
 				"operationId": "GetIssues",
 				"responses": {
 					"200": {
-						"description": "Ok",
+						"description": "OK",
 						"content": {
 							"application/json": {
 								"schema": {
 									"items": {
-										"properties": {
-											"column": {
-												"type": "number",
-												"format": "double"
-											},
-											"text": {
-												"type": "string"
-											},
-											"title": {
-												"type": "string"
-											}
-										},
-										"required": [
-											"column",
-											"text",
-											"title"
-										],
-										"type": "object"
+										"$ref": "#/components/schemas/IssueDocSwagger"
 									},
 									"type": "array"
 								}
 							}
 						}
+					},
+					"500": {
+						"description": "Internal Server Error"
 					}
 				},
 				"security": [],
 				"parameters": []
+			},
+			"post": {
+				"operationId": "CreateIssue",
+				"responses": {
+					"201": {
+						"description": "Created"
+					}
+				},
+				"security": [],
+				"parameters": [],
+				"requestBody": {
+					"required": true,
+					"content": {
+						"application/json": {
+							"schema": {
+								"$ref": "#/components/schemas/IssueDocSwagger"
+							}
+						}
+					}
+				}
 			}
 		}
 	},
